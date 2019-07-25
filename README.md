@@ -20,7 +20,7 @@ http://localhost:8888/sql/anyquery
 * **type** 类型  
   + **不传** 全等查询  
   + **like** 模糊查询  
-  + **time** 时间查询(类型为time时必传 column:**startTime** 或 column:**startTime** 和 column:**endTime**)  
+  + **time** 时间查询*(类型为time时必传 column:**startTime** 或 column:**startTime** 和 column:**endTime**)*
   
 **order** 传入排序条件  
 * **column** 字段  
