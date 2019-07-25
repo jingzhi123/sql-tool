@@ -10,19 +10,23 @@
 http://localhost:8888/sql/anyquery
 ### 参数
 **dbName** 查询的数据库,不传为默认数据库  
+
 **tableName** 表名  
+
 **coditions** 传入一个或多个条件的数组  
 * column 字段  
 * value 值  
 * type 类型  
-** 不传 全等查询  
-** like 模糊查询  
-** time 时间查询  
-*** startTime 开始时间  
-*** endTime 结束时间  
+  + 不传 全等查询  
+  + like 模糊查询  
+  + time 时间查询  
+    + startTime 开始时间  
+    + endTime 结束时间  
+  
 **order** 传入排序条件  
 * column 字段  
 * type 升降序(asc/desc)
+  
 **limit** 传入limit限制条件  
 * from 从第几行开始
 * length 筛选几行
