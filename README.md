@@ -14,26 +14,26 @@ http://localhost:8888/sql/anyquery
 **tableName** 表名  
 
 **coditions** 传入一个或多个条件的数组  
-* column 字段  
-* value 值  
-* type 类型  
-  + 不传 全等查询  
-  + like 模糊查询  
-  + time 时间查询  
-    + startTime 开始时间  
-    + endTime 结束时间  
+* **column** 字段  
+* **value** 值  
+* **type** 类型  
+  + **不传** 全等查询  
+  + **like** 模糊查询  
+  + **time** 时间查询  
+    + **startTime** 开始时间  
+    + **endTime** 结束时间  
   
 **order** 传入排序条件  
-* column 字段  
-* type 升降序(asc/desc)
+* **column** 字段  
+* **type** 升降序(asc/desc)
   
 **limit** 传入limit限制条件  
-* from 从第几行开始
-* length 筛选几行
+* **from** 从第几行开始
+* **length** 筛选几行
 ### 返回值
-* message 提示消息
-* status 状态(1成功,0失败)
-* data 数据
+* **message** 提示消息
+* **status** 状态(1成功,0失败)
+* **data** 数据
 ### 示例
 ``` javascript
 let conditions = [];
@@ -55,4 +55,4 @@ let res = await this.axios.post(`${ctx}/localapi/sql/anyquery`,qs.stringify({dbN
 console.log(res.data)//返回JSON格式的数据列表
 
 ```
-*sql* select * from DMP.project where 1=1 and POSITION('system' in creater_name) order by sign_time desc limit 0,10
+**sql** select * from DMP.project where 1=1 and POSITION('system' in creater_name) order by sign_time desc limit 0,10
