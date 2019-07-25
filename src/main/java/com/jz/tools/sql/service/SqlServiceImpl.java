@@ -7,7 +7,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.jz.tools.sql.entity.CommonItem;
+import com.jz.tools.sql.entity.DeleteEntity;
+import com.jz.tools.sql.entity.InsertEntity;
 import com.jz.tools.sql.entity.QueryEntity;
+import com.jz.tools.sql.entity.UpdateEntity;
 import com.jz.tools.sql.mapper.SqlMapper;
 import com.jz.tools.util.JsonUtils;
 import com.jz.tools.util.PageData;
@@ -46,6 +49,46 @@ public class SqlServiceImpl implements SqlService{
 		qn.setOrderData(orderData);
 		qn.setLimitData(limitData);
 		return mapper.queryAny(qn);
+	}
+
+	@Override
+	public int deleteAny(String dbName, String tableName, String conditions) {
+		DeleteEntity dn = new DeleteEntity();
+		dn.setDbName(dbName);
+		dn.setTableName(tableName);
+		Optional.ofNullable(conditions).ifPresent((c)->{
+			List<CommonItem> conditionList = JsonUtils.json2List(c, CommonItem.class);
+			dn.setConditionList(conditionList);
+		});
+		return mapper.deleteAny(dn);
+	}
+
+	@Override
+	public int insertAny(String dbName, String tableName, String datas) {
+		InsertEntity in = new InsertEntity();
+		in.setDbName(dbName);
+		in.setTableName(tableName);
+		Optional.ofNullable(datas).ifPresent((d)->{
+			List<CommonItem> dataList = JsonUtils.json2List(d, CommonItem.class);
+			in.setDataList(dataList);
+		});
+		return mapper.insertAny(in);
+	}
+
+	@Override
+	public int updateAny(String dbName, String tableName, String datas, String conditions) {
+		UpdateEntity un = new UpdateEntity();
+		un.setDbName(dbName);
+		un.setTableName(tableName);
+		Optional.ofNullable(datas).ifPresent((d)->{
+			List<CommonItem> dataList = JsonUtils.json2List(d, CommonItem.class);
+			un.setDataList(dataList);
+		});
+		Optional.ofNullable(conditions).ifPresent((c)->{
+			List<CommonItem> conditionList = JsonUtils.json2List(c, CommonItem.class);
+			un.setConditionList(conditionList);
+		});
+		return mapper.updateAny(un);
 	}
 
 }
