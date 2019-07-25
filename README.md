@@ -3,10 +3,11 @@
 一个可以动态调用的mysql小工具,方便常用的各种查询  
 动态查询当前链接的任意一张表
 ### 用法
-1. 部署到服务器或电脑  
+1. 部署到服务器或机器  
 2. 修改数据库链接  
 3. 前端可直接调用接口  
 ### 接口地址
+POST请求  
 http://localhost:8888/sql/anyquery
 ### 参数
 **dbName** 查询的数据库,不传为默认数据库  
@@ -19,9 +20,7 @@ http://localhost:8888/sql/anyquery
 * **type** 类型  
   + **不传** 全等查询  
   + **like** 模糊查询  
-  + **time** 时间查询  
-    + **startTime** 开始时间  
-    + **endTime** 结束时间  
+  + **time** 时间查询(类型为time时必传 column:**startTime** 或 column:**startTime** 和 column:**endTime**)  
   
 **order** 传入排序条件  
 * **column** 字段  
