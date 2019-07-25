@@ -31,7 +31,7 @@ http://localhost:8888/sql/anyquery
 * status 状态(1成功,0失败)
 * data 数据
 ### 示例
-```
+``` javascript
 let conditions = [];
 
 conditions.push({column:'creater_name',value:"system",type:'like'})
