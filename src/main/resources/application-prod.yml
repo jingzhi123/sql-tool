@@ -1,0 +1,13 @@
+server:
+  port: 33888
+  address: 192.168.115.205
+spring:
+  mvc:
+    view:
+      prefix: /WEB-INF/jsps/
+      suffix: .jsp
+  datasource:
+    url: jdbc:mysql://192.168.115.205:3306/INFO?useUnicode=true&characterEncoding=UTF-8
+    username: root
+    password: password#@!
+    driver-class-name: com.mysql.jdbc.Driver

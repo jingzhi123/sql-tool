@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--/*
+ * @(#)com.cru.trp.trp.mapping.TrpApiMapper.xml
+ * 版权声明 西安CRU科技股份有限公司, 版权所有 违者必究
+ *<br> Copyright： Copyright (c) 2018
+ *<br> Company： 西安CRU科技股份有限公司
+ *<br> Author： Peter 张(kun0503@163.com)
+ *<br> Date：2018-12-24 10:56:41
+ *<br> Version：1.0
+ *————————————————————————————————————
+ *修改记录
+ *    说明：接口管理
+ *    修改者：Peter 张(kun0503@163.com)
+ *    修改时间：2018-12-24 10:56:41
+ *    修改原因：创建
+ *—————————————————————————————————————
+ */
+-->
+<mapper namespace="com.jz.tools.sql.mapper.SqlMapper">
+  
+  <select id="queryAny" parameterType="com.jz.tools.sql.entity.CommonItem" resultType="com.jz.tools.util.PageData">
+    select
+    *
+    from <if test="dbName!=null">${dbName}.</if>${tableName}
+    where 1=1
+    <if test="conditionList!=null">
+	    <foreach collection="conditionList" index="index" item="item" open="and" separator="and" close=""> 
+			<choose>
+	    	 	<when test="item.type=='time'">
+	    	 		trim(create_time) &gt;= '${item.startTime}'
+	    	 		<if test="item.endTime!='' and item.endTime!=null"> and trim(create_time) &lt;= '${item.endTime}'</if>
+	    	 	</when>
+	    	 	<otherwise>
+		    	 	<choose>
+			    	 	<when test="item.type=='like'">
+			    	 		POSITION('${item.value}' in ${item.column})
+			    	 	</when>
+			    	 	
+			    	 	<otherwise>
+			    	 		${item.column} = '${item.value}'
+			    	 	</otherwise>
+			    	</choose>
+	    	 	
+	    	 	</otherwise>
+	   	 	</choose>
+	    	 
+	    </foreach>
+    </if>
+    <if test="orderData!=null">
+    	order by ${orderData.column} ${orderData.type}
+    </if>
+    <if test="limitData!=null">
+    	limit ${limitData.from},${limitData.length}
+    </if>
+  </select>
+
+  
+</mapper>
