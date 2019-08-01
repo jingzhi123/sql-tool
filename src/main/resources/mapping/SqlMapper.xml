@@ -77,8 +77,6 @@
 		<foreach collection="dataList" index="index" item="item" open="values ("
 			separator="," close=")">
 			<choose>
-				<when
-					test="item.type=='char' or item.type=='varchar' or item.type=='text'">'${item.value}'</when>
 				<when test="item.type=='int' or item.type=='tinyint'">${item.value}</when>
 				<otherwise>
 					'${item.value}'
@@ -95,7 +93,13 @@
 		<set>
 			<foreach collection="dataList" index="index" item="item"
 				open="" separator="," close="">
-				${item.column} = '${item.value}'
+				${item.column} =
+				<choose>
+					<when test="item.type=='int' or item.type=='tinyint'">${item.value}</when>
+					<otherwise>
+						'${item.value}'
+					</otherwise>
+				</choose>
 			</foreach>
 		</set>
 		where 1=1

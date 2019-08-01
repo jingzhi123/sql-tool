@@ -2,11 +2,15 @@ package com.jz.tools.sql.service;
 
 import java.util.List;
 
+import com.jz.tools.sql.entity.DeleteEntity;
+import com.jz.tools.sql.entity.InsertEntity;
+import com.jz.tools.sql.entity.QueryEntity;
+import com.jz.tools.sql.entity.UpdateEntity;
 import com.jz.tools.util.PageData;
 
 public interface SqlService {
-	List<PageData> queryAny(String dbName, String tableName, String conditions, String order, String limit);
-	int deleteAny(String dbName, String tableName, String conditions);
-	int insertAny(String dbName, String tableName, String datas);
-	int updateAny(String dbName, String tableName, String datas,String conditions);
+	List<PageData> queryAny(QueryEntity qn);
+	int deleteAny(DeleteEntity dn);
+	int insertAny(InsertEntity in);
+	int updateAny(UpdateEntity un);
 }

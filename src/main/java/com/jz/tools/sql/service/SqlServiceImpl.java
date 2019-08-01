@@ -22,73 +22,68 @@ public class SqlServiceImpl implements SqlService{
 	private SqlMapper mapper;
 
 	@Override
-	public List<PageData> queryAny(String dbName, String tableName, String conditions, String order, String limit) {
-		QueryEntity qn = new QueryEntity();
-		qn.setDbName(dbName);
-		qn.setTableName(tableName);
-		Optional.ofNullable(conditions).ifPresent((c)->{
+	public List<PageData> queryAny(QueryEntity qn) {
+		Optional.ofNullable(qn.getConditions()).ifPresent((c)->{
 			List<CommonItem> conditionList = JsonUtils.json2List(c, CommonItem.class);
-			qn.setConditionList(conditionList);
+			if(!conditionList.isEmpty()){
+				qn.setConditionList(conditionList);
+			}
 		});
-		Optional.ofNullable(order).ifPresent((o)->{
+		Optional.ofNullable(qn.getOrder()).ifPresent((o)->{
 			CommonItem orderData = JsonUtils.json2Object(o, CommonItem.class);
 			qn.setOrderData(orderData);
 		});
-		Optional.ofNullable(limit).ifPresent((l)->{
+		Optional.ofNullable(qn.getLimit()).ifPresent((l)->{
 			CommonItem limitData = JsonUtils.json2Object(l, CommonItem.class);
 			qn.setLimitData(limitData);
 		});
+		
 		return mapper.queryAny(qn);
 	}
 	
-	public List<PageData> queryAny(String dbName, String tableName, List<CommonItem> conditionList, CommonItem orderData, CommonItem limitData) {
-		QueryEntity qn = new QueryEntity();
-		qn.setDbName(dbName);
-		qn.setTableName(tableName);
-		qn.setConditionList(conditionList);
-		qn.setOrderData(orderData);
-		qn.setLimitData(limitData);
-		return mapper.queryAny(qn);
-	}
-
 	@Override
-	public int deleteAny(String dbName, String tableName, String conditions) {
-		DeleteEntity dn = new DeleteEntity();
-		dn.setDbName(dbName);
-		dn.setTableName(tableName);
-		Optional.ofNullable(conditions).ifPresent((c)->{
+	public int deleteAny(DeleteEntity dn) {
+		
+		Optional.ofNullable(dn.getConditions()).ifPresent((c)->{
 			List<CommonItem> conditionList = JsonUtils.json2List(c, CommonItem.class);
-			dn.setConditionList(conditionList);
+			if(!conditionList.isEmpty()){
+				dn.setConditionList(conditionList);
+			}
 		});
 		return mapper.deleteAny(dn);
 	}
 
+
 	@Override
-	public int insertAny(String dbName, String tableName, String datas) {
-		InsertEntity in = new InsertEntity();
-		in.setDbName(dbName);
-		in.setTableName(tableName);
-		Optional.ofNullable(datas).ifPresent((d)->{
+	public int insertAny(InsertEntity in) {
+		Optional.ofNullable(in.getDatas()).ifPresent((d)->{
 			List<CommonItem> dataList = JsonUtils.json2List(d, CommonItem.class);
+			if(dataList.isEmpty()){
+				throw new RuntimeException("dataList必须有数据!");
+			}
 			in.setDataList(dataList);
 		});
 		return mapper.insertAny(in);
 	}
 
 	@Override
-	public int updateAny(String dbName, String tableName, String datas, String conditions) {
-		UpdateEntity un = new UpdateEntity();
-		un.setDbName(dbName);
-		un.setTableName(tableName);
-		Optional.ofNullable(datas).ifPresent((d)->{
+	public int updateAny(UpdateEntity un) {
+		Optional.ofNullable(un.getDatas()).ifPresent((d)->{
 			List<CommonItem> dataList = JsonUtils.json2List(d, CommonItem.class);
+			if(dataList.isEmpty()){
+				throw new RuntimeException("dataList必须有数据!");
+			}
 			un.setDataList(dataList);
 		});
-		Optional.ofNullable(conditions).ifPresent((c)->{
+		Optional.ofNullable(un.getConditions()).ifPresent((c)->{
 			List<CommonItem> conditionList = JsonUtils.json2List(c, CommonItem.class);
-			un.setConditionList(conditionList);
+			if(!conditionList.isEmpty()){
+				un.setConditionList(conditionList);
+			}
 		});
 		return mapper.updateAny(un);
 	}
+
+	
 
 }

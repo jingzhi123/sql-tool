@@ -1,8 +1,11 @@
 package com.jz.tools.sql.entity;
 
+import javax.validation.constraints.NotEmpty;
+
 public class BaseEntity {
 
 	private String dbName;
+	@NotEmpty(message = "tableName(表名)不能为空!")
 	private String tableName;
 	public String getDbName() {
 		return dbName;
