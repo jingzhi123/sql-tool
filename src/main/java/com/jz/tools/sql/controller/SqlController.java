@@ -32,4 +32,52 @@ public class SqlController {
 		}
 		return data;
 	}
+	
+	@PostMapping(value = "/anyinsert")
+	public MessageModel insertAny(String dbName,@RequestParam("tableName") String tableName,@RequestParam("datas") String datas){
+		MessageModel data = MessageModel.success("新增成功!");
+		int result = 0;
+		try {
+			result = sqlService.insertAny(dbName, tableName, datas);
+			data.setMessage("成功新增" + result + "条");
+			data.setData(result);
+		} catch (Exception e) {
+			data = MessageModel.error(e.getMessage());
+			data.setData(e.getMessage());
+			e.printStackTrace();
+		}
+		return data;
+	}
+	
+	@PostMapping(value = "/anyupdate")
+	public MessageModel updateAny(String dbName,@RequestParam("tableName") String tableName,@RequestParam("datas") String datas,String conditions){
+		MessageModel data = MessageModel.success("修改成功!");
+		int result = 0;
+		try {
+			result = sqlService.updateAny(dbName, tableName, datas,conditions);
+			data.setMessage("成功修改" + result + "条");
+			data.setData(result);
+		} catch (Exception e) {
+			data = MessageModel.error(e.getMessage());
+			data.setData(e.getMessage());
+			e.printStackTrace();
+		}
+		return data;
+	}
+	
+	@PostMapping(value = "/anydelete")
+	public MessageModel deleteAny(String dbName,@RequestParam("tableName") String tableName,String conditions){
+		MessageModel data = MessageModel.success("删除成功!");
+		int result = 0;
+		try {
+			result = sqlService.deleteAny(dbName, tableName, conditions);
+			data.setMessage("成功删除" + result + "条");
+			data.setData(result);
+		} catch (Exception e) {
+			data = MessageModel.error(e.getMessage());
+			data.setData(e.getMessage());
+			e.printStackTrace();
+		}
+		return data;
+	}
 }

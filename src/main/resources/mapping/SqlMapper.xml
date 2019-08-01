@@ -46,7 +46,9 @@
 
 	<!-- 动态删除 -->
 	<delete id="deleteAny" parameterType="com.jz.tools.sql.entity.CommonItem">
-		delete from <if test="dbName!=null">${dbName}.</if>${tableName}
+		delete from
+		<if test="dbName!=null">${dbName}.</if>
+		${tableName}
 		where 1=1
 		<if test="conditionList!=null">
 			<foreach collection="conditionList" index="index" item="item"
@@ -65,21 +67,31 @@
 
 	<!-- 动态新增 -->
 	<insert id="insertAny" parameterType="com.jz.tools.sql.entity.CommonItem">
-		insert into <if test="dbName!=null">${dbName}.</if>${tableName}
+		insert into
+		<if test="dbName!=null">${dbName}.</if>
+		${tableName}
 		<foreach collection="dataList" index="index" item="item" open="("
 			separator="," close=")">
 			${item.column}
 		</foreach>
 		<foreach collection="dataList" index="index" item="item" open="values ("
 			separator="," close=")">
-			<if test="item.type=='char' or item.type=='varchar' or item.type=='text'">'${item.value}'</if>
-			<if test="item.type=='int' or item.type=='tinyint'">${item.value}</if>
+			<choose>
+				<when
+					test="item.type=='char' or item.type=='varchar' or item.type=='text'">'${item.value}'</when>
+				<when test="item.type=='int' or item.type=='tinyint'">${item.value}</when>
+				<otherwise>
+					'${item.value}'
+				</otherwise>
+			</choose>
 		</foreach>
 	</insert>
 
 	<!-- 动态修改 -->
 	<update id="updateAny" parameterType="com.jz.tools.sql.entity.CommonItem">
-		update <if test="dbName!=null">${dbName}.</if>${tableName}
+		update
+		<if test="dbName!=null">${dbName}.</if>
+		${tableName}
 		<set>
 			<foreach collection="dataList" index="index" item="item"
 				open="" separator="," close="">
