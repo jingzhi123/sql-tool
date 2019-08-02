@@ -11,6 +11,7 @@ import com.jz.tools.util.PageData;
 
 @Repository
 public interface SqlMapper{
+	List<PageData> querySql(String sql);
 	List<PageData> queryAny(QueryEntity qn);
 	int deleteAny(DeleteEntity dn);
 	int insertAny(InsertEntity in);

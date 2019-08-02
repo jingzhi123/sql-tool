@@ -2,6 +2,10 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.jz.tools.sql.mapper.SqlMapper">
+	<select id="querySql" parameterType="string" resultType="com.jz.tools.util.PageData">
+		${value}
+	</select>
+
 	<!-- 动态查询 -->
 	<select id="queryAny" parameterType="com.jz.tools.sql.entity.CommonItem"
 		resultType="com.jz.tools.util.PageData">

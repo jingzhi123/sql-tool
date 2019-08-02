@@ -20,6 +20,12 @@ public class SqlServiceImpl implements SqlService{
 
 	@Autowired
 	private SqlMapper mapper;
+	
+	@Override
+	public List<PageData> querySql(String sql) {
+		// TODO Auto-generated method stub
+		return mapper.querySql(sql);
+	}
 
 	@Override
 	public List<PageData> queryAny(QueryEntity qn) {
@@ -83,6 +89,8 @@ public class SqlServiceImpl implements SqlService{
 		});
 		return mapper.updateAny(un);
 	}
+
+	
 
 	
 

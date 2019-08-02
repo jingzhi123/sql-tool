@@ -9,6 +9,7 @@ import com.jz.tools.sql.entity.UpdateEntity;
 import com.jz.tools.util.PageData;
 
 public interface SqlService {
+	List<PageData> querySql(String sql);
 	List<PageData> queryAny(QueryEntity qn);
 	int deleteAny(DeleteEntity dn);
 	int insertAny(InsertEntity in);
