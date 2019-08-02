@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.Pattern;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
@@ -29,7 +28,7 @@ public class SqlController {
 	private SqlService sqlService;
 	
 	@PostMapping(value = "")
-	public MessageModel querySql(@Pattern(regexp = "select+",message = "必须有select关键词!") @NotEmpty(message = "sql不能为空!") @RequestParam("sql") String sql){
+	public MessageModel querySql(@NotEmpty(message = "sql不能为空!") @RequestParam("sql") String sql){
 		MessageModel data = MessageModel.success("查询成功!");
 		
 		

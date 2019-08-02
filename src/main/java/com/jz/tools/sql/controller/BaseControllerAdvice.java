@@ -18,27 +18,33 @@ import com.jz.tools.entity.MessageModel;
 @ControllerAdvice
 @ResponseBody
 public class BaseControllerAdvice {
-	
+
 	@ExceptionHandler(BindException.class)
-	public MessageModel catchBindException(BindException e){
+	public MessageModel catchBindException(BindException e) {
 		BindingResult br = e.getBindingResult();
 		String errorString = "";
-		if(br.hasFieldErrors()){
+		if (br.hasFieldErrors()) {
 			List<FieldError> errors = br.getFieldErrors();
 			for (Iterator<FieldError> iterator = errors.iterator(); iterator.hasNext();) {
 				FieldError fieldError = (FieldError) iterator.next();
-				errorString += fieldError.getDefaultMessage() + (iterator.hasNext()?",":"");
-			} 
+				errorString += fieldError.getDefaultMessage() + (iterator.hasNext() ? "," : "");
+			}
 		}
 		MessageModel data = MessageModel.error(errorString);
 		data.setData(Collections.EMPTY_LIST);
 		return data;
 	}
-	
+
 	@ExceptionHandler(ConstraintViolationException.class)
-	public MessageModel catchConstraintViolationException(ConstraintViolationException e){
+	public MessageModel catchConstraintViolationException(ConstraintViolationException e) {
+		String es = "";
 		String errorString = e.getMessage();
-		MessageModel data = MessageModel.error(errorString);
+		String[] split = errorString.split(",");
+		for (String string : split) {
+			es += string.split(":")[1] + ",";
+		}
+		es = es.substring(0, es.length() - 1);
+		MessageModel data = MessageModel.error(es);
 		data.setData(Collections.EMPTY_LIST);
 		return data;
 	}
