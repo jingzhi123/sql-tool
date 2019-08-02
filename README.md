@@ -8,6 +8,34 @@
 3. 启动服务器  
 4. 前端可直接通过调用接口,去操作当前链接下任意数据库 
 
+### 动态查询
+POST请求  
+http://localhost:8888/sql
+### 参数
+**sql** 输入sql语句  
+### 返回值
+* **message** 提示消息
+* **status** 状态(1成功,0失败)
+* **data** 数据
+
+### 示例
+``` javascript
+async querySql(sql) {
+  
+  let res = await this.axios.post(
+    `${ctx}/localapi/sql`,
+    qs.stringify({
+      sql: sql,
+      
+    })
+  );
+  console.log(res.data);
+  this.message = res.data.message;
+  this.dataList = res.data.data;
+}
+```
+
+
 ### 查询  
 ### 接口地址
 POST请求  
@@ -32,10 +60,12 @@ http://localhost:8888/sql/anyquery
 **limit** 传入limit限制条件  
 * **from** 从第几行开始
 * **length** 筛选几行
+
 ### 返回值
 * **message** 提示消息
 * **status** 状态(1成功,0失败)
 * **data** 数据
+
 ### 示例
 ``` javascript
 async query() {
@@ -89,6 +119,7 @@ http://localhost:8888/sql/anyinsert
 * **message** 提示消息
 * **status** 状态(1成功,0失败)
 * **data** 成功的条数
+
 ### 示例
 ``` javascript
 async insert() {
@@ -140,6 +171,7 @@ http://localhost:8888/sql/anyupdate
 * **message** 提示消息
 * **status** 状态(1成功,0失败)
 * **data** 成功的条数
+
 ### 示例
 ``` javascript
 async update() {
@@ -186,6 +218,7 @@ http://localhost:8888/sql/anydelete
 * **message** 提示消息
 * **status** 状态(1成功,0失败)
 * **data** 成功的条数
+
 ### 示例
 ``` javascript
 async delete() {
