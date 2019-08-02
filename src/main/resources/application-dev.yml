@@ -14,11 +14,8 @@ mybatis:
   mapper-locations: classpath:mapping/*Mapper.xml
   type-aliases-package: com.jz.tools.sql.entity
  
-#showSql
 logging:
   level:
     com:
       jz:
-        tools:
-          sql:
-            mapper: debug
+        tools: debug

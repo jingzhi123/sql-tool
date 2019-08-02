@@ -15,9 +15,9 @@ mybatis:
   mapper-locations: classpath:mapping/*Mapper.xml
   type-aliases-package: com.jz.tools.sql.entity
  
-#showSql
 logging:
   level:
+    root: warn
     com:
       jz:
         tools:
